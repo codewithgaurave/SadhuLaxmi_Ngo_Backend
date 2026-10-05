@@ -23,6 +23,8 @@ const app = express();
 const allowedOrigins = [
   'https://ngo-admin-panel-nine.vercel.app',
   'https://ngo-website-drab-three.vercel.app',
+  'https://admin.sadhulaxmi.com',
+  'http://admin.sadhulaxmi.com',
   'https://sadhulaxmi.com',
   'https://www.sadhulaxmi.com',
   'http://sadhulaxmi.com',
@@ -36,7 +38,12 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('sadhulaxmi.com') ||
+      origin.endsWith('.vercel.app')
+    ) {
       callback(null, true);
     } else {
       callback(new Error(`CORS blocked: ${origin}`));
